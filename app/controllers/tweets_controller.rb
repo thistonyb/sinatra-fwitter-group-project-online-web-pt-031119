@@ -66,8 +66,8 @@ class TweetsController < ApplicationController
     if !Helpers.is_signed_in?(session)
       redirect to '/login'
     end
+    @tweet = Tweet.find_by_id(params[:id])
     if @tweet.user == Helpers.current_user(session)
-      @tweet = Tweet.find_by_id(params[:id])
       @tweet.delete
       redirect to '/tweets'
     end
