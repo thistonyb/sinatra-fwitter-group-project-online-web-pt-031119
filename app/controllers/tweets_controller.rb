@@ -62,6 +62,17 @@ class TweetsController < ApplicationController
     redirect to "/tweets/#{@tweet.id}"
   end
 
+  delete '/tweets/:id/delete' do
+    if !Helpers.is_signed_in?(session)
+      redirect to '/login'
+    end
+    if @tweet.user == Helpers.current_user(session)
+      @tweet = Tweet.find_by_id(params[:id])
+      @tweet.delete
+      redirect to '/tweets'
+    end
+  end
+
 
 
 
